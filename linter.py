@@ -17,18 +17,18 @@ except (ImportError):
 
 class GfortranFixedForm(Linter):
     """Provides an interface to gfortran."""
-    cmd = 'gfortran -cpp -fsyntax-only -Wall'
+    cmd = 'gfortran -cpp -fsyntax-only -Wall ${temp_file}'
     multiline = True
 
     # Migrated this upward to keep things neat
     on_stderr = True
     tempfile_suffix = "f"
-    
+
     # Adding defaults:selector arg because this is required by SublimeLinter as of July 2019
     defaults = {
         'selector': 'source.fixedform-fortran'
     }
-    
+
     # Commenting out args that are no longer used by SublimeLinter as of July 2019
     # executable = None
     # version_args = '--version'
@@ -47,7 +47,7 @@ class GfortranFixedForm(Linter):
             r'(?:(?P<error>Error|Fatal\sError)|(?P<warning>Warning)): (?P<message>.*$)'
         )
     else:
-        # This Regex block is retained from the previous commit 
+        # This Regex block is retained from the previous commit
         regex = (
             # filename:line:col: is common for multiline and single line warnings
             r'^[^:]*:(?P<line>\d+)[:.](?P<col>\d+):'
@@ -59,7 +59,7 @@ class GfortranFixedForm(Linter):
 
 class GfortranModern(Linter):
     """Provides an interface to gfortran."""
-    cmd = 'gfortran -cpp -fsyntax-only -Wall'
+    cmd = 'gfortran -cpp -fsyntax-only -Wall ${temp_file}'
     multiline = True
 
     # Migrated this upward to keep things neat
@@ -70,7 +70,7 @@ class GfortranModern(Linter):
     defaults = {
         'selector': 'source.modern-fortran'
     }
-    
+
     # Commenting out args that are no longer used by SublimeLinter as of July 2019
     #executable = None
     #version_args = '--version'
@@ -89,7 +89,7 @@ class GfortranModern(Linter):
             r'(?:(?P<error>Error|Fatal\sError)|(?P<warning>Warning)): (?P<message>.*$)'
         )
     else:
-        # This Regex block is retained from the previous commit 
+        # This Regex block is retained from the previous commit
         regex = (
             # filename:line:col: is common for multiline and single line warnings
             r'^[^:]*:(?P<line>\d+)[:.](?P<col>\d+):'
@@ -98,4 +98,4 @@ class GfortranModern(Linter):
             # Finally we have (Error|Warning): message to the end of the line
             r'(?:(?P<error>Error|Fatal\sError)|(?P<warning>Warning)): (?P<message>.*$)'
         )
-    
+
